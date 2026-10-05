@@ -1,0 +1,11 @@
+shared:
+  name: "Fresh Wave"
+  subtitle: "A First-Year Social"
+  tagline: "Your first-year story starts here."
+  date: "Friday, 23 October 2026"
+  time: "4:00 PM"
+  venue: "Vista Hotel"
+  location: "Mumena, Kigali, Rwanda"
+  ticket_price: 5000
+  currency: "RWF"
+  year: 2026

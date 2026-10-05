@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chapter One — A First-Year Social</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="A first-year social in Kigali. Meet people, have honest conversations, have fun and make memories worth keeping.">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="<%= root_path %>">Chapter One</a>
+      <a class="header-link" href="#details">Date &amp; venue</a>
+    </header>
+
+    <%= yield %>
+
+    <footer class="site-footer">
+      <p class="hand"><%= Rails.configuration.x.event.name %> • <%= Rails.configuration.x.event.year %></p>
+      <p>Made for first-years who are figuring it out, one connection at a time.</p>
+    </footer>
+  </body>
+</html>

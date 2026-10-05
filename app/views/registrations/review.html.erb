@@ -1,0 +1,23 @@
+<main class="form-page">
+  <div class="paper-card">
+    <span class="tape tape--blue" aria-hidden="true"></span>
+    <p class="eyebrow hand">Step 2 of 3</p>
+    <h1>Check your details</h1>
+    <p class="intro">Everything look right?</p>
+
+    <dl class="review">
+      <div><dt>Name</dt><dd><%= @data["full_name"] %></dd></div>
+      <div><dt>Phone</dt><dd><%= PhoneNormalizer.local(@data["phone"]) %></dd></div>
+      <div><dt>Programme</dt><dd><%= @data["programme"] %></dd></div>
+      <% if @data["email"].present? %><div><dt>Email</dt><dd><%= @data["email"] %></dd></div><% end %>
+      <% if @data["coming_with"].present? %><div><dt>Coming with</dt><dd><%= @data["coming_with"] %></dd></div><% end %>
+      <% if @data["interests"].present? %><div><dt>Most excited about</dt><dd><%= @data["interests"].join(", ") %></dd></div><% end %>
+    </dl>
+
+    <div class="cta-row">
+      <a class="btn btn--ghost" href="<%= new_registration_path %>">Edit details</a>
+      <button class="btn btn--primary" type="button" disabled>Continue to payment →</button>
+    </div>
+    <p class="form-note">Saving your registration and payment are coming in the next phases, so the button is switched off for now.</p>
+  </div>
+</main>

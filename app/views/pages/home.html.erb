@@ -1,0 +1,109 @@
+<main>
+ 
+   <!-- HERO -->
+  <section class="hero-band">
+    <div class="hero">
+      <div class="hero__text">
+        <h1 class="hero__title"><%= @event.name %></h1>
+        <p class="hero__subtitle"><%= @event.subtitle %></p>
+        <p class="hero__tagline">“<%= @event.tagline %>”</p>
+
+        <p class="hero__firsts">
+          University is going to give you a lot of firsts.<br>
+          Your first lecture.<br>
+          Your first friend.<br>
+          Your first embarrassing presentation.<br>
+          Your first night out.
+        </p>
+        <p class="hero__kicker">Why not make a few memories while you're at it?</p>
+
+        <p class="hero__explain">
+          <%= @event.name %> is a first-year social created to help students meet people,
+          have honest conversations, have fun and create memories worth keeping.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn btn--primary" href="<%= new_registration_path %>">Register for <%= @event.name %> →</a>
+          <a class="btn btn--ghost" href="#happening">See what's happening</a>
+        </div>
+      </div>
+
+      <figure class="polaroid tilt-r hero__polaroid">
+        <span class="tape" aria-hidden="true"></span>
+        <div class="photo p-blue" aria-hidden="true">🎓</div>
+        <figcaption class="hand">First year • First memories</figcaption>
+      </figure>
+    </div>
+
+    <svg class="waves" viewBox="0 0 540 70" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path d="M0 26 C60 6 110 6 170 24 S290 44 350 22 S470 4 540 22 V70 H0 Z" fill="#FBC9D8" opacity=".9"/>
+      <path d="M0 40 C70 22 130 26 190 40 S310 58 370 38 S480 22 540 36 V70 H0 Z" fill="#FF7FAE"/>
+      <path d="M0 54 C70 42 130 46 190 54 S310 66 370 52 S480 42 540 52 V70 H0 Z" fill="#FFF4EC"/>
+    </svg>
+  </section>
+
+
+  <!-- WHAT'S HAPPENING -->
+  <section class="section" id="happening">
+    <h2>Come for the vibes.<br><span class="hand accent">Stay for the connections.</span></h2>
+    <p class="section__lead">
+      This isn't another sit-down-and-listen event. It's real conversations,
+      games, networking and good energy.
+    </p>
+
+    <div class="note-grid">
+      <article class="note-card c-blue"><h3>🎮 Games &amp; challenges</h3><p>Get competitive, laugh a little and meet people outside your usual circle.</p></article>
+      <article class="note-card c-tang"><h3>🤝 Networking</h3><p>Meet students from other courses and start building your university network early.</p></article>
+      <article class="note-card c-terra"><h3>🧠 Real conversations</h3><p>Talk honestly about pressure, adjustment, loneliness and finding your feet.</p></article>
+      <article class="note-card c-tang"><h3>🎤 Karaoke &amp; music</h3><p>Good music, karaoke and plenty of room to just enjoy yourself.</p></article>
+      <article class="note-card c-terra"><h3>🍽️ Food &amp; drinks</h3><p>Snacks, drinks and time to actually hang out.</p></article>
+      <article class="note-card c-blue"><h3>🎁 Giveaways &amp; surprises</h3><p>A few things we're keeping secret for now. 👀</p></article>
+    </div>
+  </section>
+
+  <!-- WHAT TO EXPECT -->
+  <section class="section section--paper">
+    <h2>What to expect</h2>
+    <ol class="steps">
+      <li><span class="steps__num">1</span><div><h3>Meet &amp; mingle</h3><p>Human Bingo, Two Truths &amp; a Lie, speed networking and easy icebreakers.</p></div></li>
+      <li><span class="steps__num">2</span><div><h3>Play &amp; compete</h3><p>Charades, team challenges, music challenges and friendly competition.</p></div></li>
+      <li><span class="steps__num">3</span><div><h3>Talk &amp; connect</h3><p>An honest, interactive conversation about mental health, friendships and first year.</p></div></li>
+      <li><span class="steps__num">4</span><div><h3>Eat, dance &amp; enjoy</h3><p>Snacks, music, karaoke, photos, giveaways and time to hang out.</p></div></li>
+    </ol>
+    <p class="come-as-you-are hand">Come as you are. Leave with new connections, new memories, and maybe a new friend or two.</p>
+  </section>
+
+  <!-- MEMORY / SCRAPBOOK -->
+  <section class="section">
+    <h2>Take a picture. <span class="accent">Leave a memory.</span> 📸</h2>
+    <p class="section__lead">
+      Capture a moment from the night and leave a little piece of your first
+      year behind in the Chapter One scrapbook.
+    </p>
+
+    <div class="polaroid-row">
+      <figure class="polaroid tilt-l"><span class="tape" aria-hidden="true"></span><div class="photo p-tang" aria-hidden="true">📷</div><figcaption class="hand">I was here.</figcaption></figure>
+      <figure class="polaroid tilt-r2"><span class="tape tape--blue" aria-hidden="true"></span><div class="photo p-terra" aria-hidden="true">✨</div><figcaption class="hand">First year • First memories</figcaption></figure>
+      <figure class="polaroid tilt-l2"><span class="tape" aria-hidden="true"></span><div class="photo p-blue" aria-hidden="true">🎶</div><figcaption class="hand">Chapter One • <%= @event.year %></figcaption></figure>
+      <figure class="polaroid tilt-r"><span class="tape tape--blue" aria-hidden="true"></span><div class="photo p-tang" aria-hidden="true">👀</div><figcaption class="hand">Wish you were here 👀</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- EVENT DETAILS (ticket stub) -->
+  <section class="section" id="details">
+    <h2>Save the date</h2>
+    <div class="ticket">
+      <dl class="ticket__main">
+        <div><dt>Date</dt><dd><%= @event.date %></dd></div>
+        <div><dt>Time</dt><dd><%= @event.time %></dd></div>
+        <div><dt>Venue</dt><dd><%= @event.venue %></dd></div>
+        <div><dt>Location</dt><dd><%= @event.location %></dd></div>
+      </dl>
+      <div class="ticket__stub">
+        <p class="hand">Ticket</p>
+        <p class="ticket__price"><%= number_with_delimiter(@event.ticket_price) %> <small><%= @event.currency %></small></p>
+        <a class="btn btn--primary" href="/register">Register →</a>
+      </div>
+    </div>
+  </section>
+</main>

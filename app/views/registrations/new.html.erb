@@ -1,0 +1,80 @@
+<main class="form-page">
+  <div class="paper-card">
+    <span class="tape" aria-hidden="true"></span>
+    <p class="eyebrow hand">Step 1 of 3</p>
+    <h1>Save your spot</h1>
+    <p class="intro">Just the basics. It takes about a minute. Ticket: <%= number_with_delimiter(@event.ticket_price) %> <%= @event.currency %>.</p>
+
+    <%= form_with model: @form, url: registrations_path, novalidate: true,
+                  data: { controller: "validate", action: "submit->validate#submit" } do |f| %>
+
+      <% if @form.errors.any? %>
+        <div class="error-summary" role="alert">Please fix the highlighted fields and try again.</div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :full_name, "Full name" %>
+        <%= f.text_field :full_name, autocomplete: "name", maxlength: 80,
+              aria: { invalid: @form.errors[:full_name].any?, describedby: "registration_form_full_name-error" },
+              data: { validate_target: "field", rules: "required",
+                      required_message: "Please tell us your name.",
+                      action: "blur->validate#check input->validate#clear" } %>
+        <p class="field__error" id="registration_form_full_name-error"><%= @form.errors[:full_name].first %></p>
+      </div>
+
+      <div class="field">
+        <%= f.label :phone, "Phone number" %>
+        <p class="hint">Any Rwandan mobile number, e.g. 0788 123 456</p>
+        <%= f.telephone_field :phone, autocomplete: "tel", inputmode: "tel", maxlength: 20,
+              aria: { invalid: @form.errors[:phone].any?, describedby: "registration_form_phone-error" },
+              data: { validate_target: "field", rules: "required phone",
+                      required_message: "We need your phone number so we can find your ticket later.",
+                      phone_message: "That doesn't look like a Rwandan mobile number. Try something like 0788 123 456.",
+                      action: "blur->validate#check input->validate#clear" } %>
+        <p class="field__error" id="registration_form_phone-error"><%= @form.errors[:phone].first %></p>
+      </div>
+
+      <div class="field">
+        <%= f.label :programme, "Programme / course" %>
+        <%= f.text_field :programme, maxlength: 100,
+              aria: { invalid: @form.errors[:programme].any?, describedby: "registration_form_programme-error" },
+              data: { validate_target: "field", rules: "required",
+                      required_message: "Please tell us what you're studying.",
+                      action: "blur->validate#check input->validate#clear" } %>
+        <p class="field__error" id="registration_form_programme-error"><%= @form.errors[:programme].first %></p>
+      </div>
+
+      <div class="field">
+        <%= f.label :email do %>Email <span class="opt">(optional)</span><% end %>
+        <%= f.email_field :email, autocomplete: "email", maxlength: 254,
+              aria: { invalid: @form.errors[:email].any?, describedby: "registration_form_email-error" },
+              data: { validate_target: "field", rules: "email",
+                      email_message: "That email doesn't look right. You can also leave it blank.",
+                      action: "blur->validate#check input->validate#clear" } %>
+        <p class="field__error" id="registration_form_email-error"><%= @form.errors[:email].first %></p>
+      </div>
+
+      <div class="field">
+        <%= f.label :coming_with do %>Who are you coming with? <span class="opt">(optional)</span><% end %>
+        <%= f.text_field :coming_with, maxlength: 100,
+              aria: { invalid: @form.errors[:coming_with].any?, describedby: "registration_form_coming_with-error" },
+              data: { validate_target: "field", rules: "" } %>
+        <p class="field__error" id="registration_form_coming_with-error"><%= @form.errors[:coming_with].first %></p>
+      </div>
+
+      <fieldset class="field">
+        <legend>What are you most excited about? <span class="opt">(optional)</span></legend>
+        <div class="chips">
+          <% RegistrationForm::INTERESTS.each do |interest| %>
+            <label class="chip">
+              <%= check_box_tag "registration_form[interests][]", interest, @form.interests.include?(interest), id: nil %>
+              <span><%= interest %></span>
+            </label>
+          <% end %>
+        </div>
+      </fieldset>
+
+      <button class="btn btn--primary" type="submit" style="width:100%">Review my details →</button>
+    <% end %>
+  </div>
+</main>
