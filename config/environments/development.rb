@@ -2,7 +2,8 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   config.hosts << /.*\.app\.github\.dev\z/
-
+  # Codespaces: the browser origin and the proxied address differ, so skip this check in development only.
+  config.action_controller.forgery_protection_origin_check = false
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 

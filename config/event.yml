@@ -1,11 +1,21 @@
 shared:
-  name: "Fresh Wave"
+  name: "First Wave"
   subtitle: "A First-Year Social"
   tagline: "Your first-year story starts here."
   date: "Friday, 23 October 2026"
   time: "4:00 PM"
   venue: "Vista Hotel"
   location: "Mumena, Kigali, Rwanda"
-  ticket_price: 5000
   currency: "RWF"
   year: 2026
+
+  # Pricing: the first `early_bird_limit` registrations pay the early bird price
+  early_bird_limit: 200
+  early_bird_price: 5000
+  regular_price: 7000
+
+  # Shown on the site. Replace with the real numbers.
+  organizers:
+    - { name: "Organizer 1", phone: "0799 617 065" }
+    - { name: "Organizer 2", phone: "0796 881 195" }
+    - { name: "Organizer 3", phone: "0798 449 539" }

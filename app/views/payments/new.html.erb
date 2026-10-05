@@ -1,0 +1,28 @@
+<main class="form-page">
+  <div class="paper-card">
+    <span class="tape" aria-hidden="true"></span>
+    <p class="eyebrow hand">Step 3 of 3</p>
+    <h1>Pay for your ticket</h1>
+    <p class="intro">
+      <strong><%= number_with_delimiter(@registration.price) %> <%= @event.currency %></strong>
+      <%= "(early bird)" if @registration.early_bird %><br>
+      <%= @event.name %> · <%= @event.date %> · <%= @event.time %>
+    </p>
+
+    <%= form_with model: @payment, url: new_payment_path(code: @registration.ticket_code), method: :post do |f| %>
+      <% if @payment.errors.any? %>
+        <div class="error-summary" role="alert">Please fix the highlighted field and try again.</div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :payer_phone, "MTN MoMo number" %>
+        <p class="hint">The number that will pay. You'll get a prompt on this phone to enter your MoMo PIN.</p>
+        <%= f.telephone_field :payer_phone, autocomplete: "tel", inputmode: "tel", maxlength: 20,
+              aria: { invalid: @payment.errors[:payer_phone].any? } %>
+        <p class="field__error"><%= @payment.errors[:payer_phone].first %></p>
+      </div>
+
+      <button class="btn btn--primary" type="submit" style="width:100%">Send payment request →</button>
+    <% end %>
+  </div>
+</main>

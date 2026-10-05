@@ -3,7 +3,7 @@
     <span class="tape" aria-hidden="true"></span>
     <p class="eyebrow hand">Step 1 of 3</p>
     <h1>Save your spot</h1>
-    <p class="intro">Just the basics. It takes about a minute. Ticket: <%= number_with_delimiter(@event.ticket_price) %> <%= @event.currency %>.</p>
+    <p class="intro">Just the basics. It takes about a minute. Ticket: <%= number_with_delimiter(Registration.current_price) %> <%= @event.currency %>.</p>
 
     <%= form_with model: @form, url: registrations_path, novalidate: true,
                   data: { controller: "validate", action: "submit->validate#submit" } do |f| %>

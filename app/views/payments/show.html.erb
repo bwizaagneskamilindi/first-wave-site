@@ -1,0 +1,34 @@
+<main class="form-page">
+  <div class="paper-card">
+    <span class="tape" aria-hidden="true"></span>
+
+    <% if @payment.pending? %>
+      <%# Reload this page every 5 seconds so it notices when the payment is confirmed %>
+      <meta http-equiv="refresh" content="5">
+
+      <p class="eyebrow hand">Waiting for you</p>
+      <h1>Check your phone 📱</h1>
+      <p class="intro">
+        We sent a payment request of <strong><%= number_with_delimiter(@payment.amount) %> <%= @payment.currency %></strong>
+        to <%= PhoneNormalizer.local(@payment.payer_phone) %>. Approve it with your MoMo PIN.
+        This page updates by itself.
+      </p>
+
+      <% if Rails.env.development? %>
+        <p class="hint">Development only: simulate MTN's answer</p>
+        <div class="cta-row">
+          <%= button_to "Simulate success", simulate_payment_path(reference: @payment.reference_id, outcome: "success"),
+                method: :post, class: "btn btn--primary" %>
+          <%= button_to "Simulate failure", simulate_payment_path(reference: @payment.reference_id, outcome: "failure"),
+                method: :post, class: "btn btn--ghost" %>
+        </div>
+      <% end %>
+
+    <% elsif @payment.failed? %>
+      <p class="eyebrow hand">Hmm</p>
+      <h1>The payment didn't go through</h1>
+      <p class="intro">No money was taken. You can try again.</p>
+      <%= link_to "Try again", new_payment_path(code: @registration.ticket_code), class: "btn btn--primary" %>
+    <% end %>
+  </div>
+</main>

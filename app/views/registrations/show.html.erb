@@ -1,0 +1,56 @@
+<main class="form-page">
+  <% if @registration.paid? %>
+
+    <article class="ticket" aria-label="Your <%= @event.name %> ticket">
+      <header class="ticket__top">
+        <p class="ticket__brand"><%= @event.name %></p>
+        <p class="ticket__sub"><%= @event.subtitle %></p>
+      </header>
+
+      <div class="ticket__body">
+        <div class="ticket__qr-wrap" role="img" aria-label="QR code for ticket <%= @registration.ticket_code %>">
+          <%= qr_svg(@registration.ticket_code) %>
+        </div>
+        <p class="ticket__code"><%= @registration.ticket_code %></p>
+        <hr class="ticket__perf">
+      </div>
+
+      <dl class="ticket__details">
+        <div><dt>Name</dt><dd><%= @registration.full_name %></dd></div>
+        <div><dt>Date</dt><dd><%= @event.date %></dd></div>
+        <div><dt>Time</dt><dd><%= @event.time %></dd></div>
+        <div><dt>Where</dt><dd><%= @event.venue %>, <%= @event.location %></dd></div>
+      </dl>
+
+      <p class="ticket__tagline"><%= @event.tagline %></p>
+    </article>
+
+    <p class="ticket-note">
+      Take a screenshot of this ticket and show the QR code at the door.
+      Bookmark this page too, so you can always find it again.
+    </p>
+
+  <% else %>
+
+    <div class="paper-card">
+      <span class="tape" aria-hidden="true"></span>
+      <p class="eyebrow hand">Almost there</p>
+      <h1>You're on the list, <%= @registration.full_name.split.first %>!</h1>
+
+      <p class="intro">
+        <%= @event.name %> · <%= @event.date %> · <%= @event.time %><br>
+        <%= @event.venue %>, <%= @event.location %>
+      </p>
+
+      <p><strong>Your ticket code:</strong> <%= @registration.ticket_code %></p>
+      <p><strong>Ticket price:</strong>
+        <%= number_with_delimiter(@registration.price) %> <%= @event.currency %>
+        <%= "(early bird)" if @registration.early_bird %>
+      </p>
+      <p><strong>Status:</strong> Payment pending</p>
+
+      <%= link_to "Pay with MTN MoMo →", new_payment_path(code: @registration.ticket_code), class: "btn btn--primary" %>
+    </div>
+
+  <% end %>
+</main>

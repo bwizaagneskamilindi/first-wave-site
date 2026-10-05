@@ -12,12 +12,17 @@
       <% if @data["email"].present? %><div><dt>Email</dt><dd><%= @data["email"] %></dd></div><% end %>
       <% if @data["coming_with"].present? %><div><dt>Coming with</dt><dd><%= @data["coming_with"] %></dd></div><% end %>
       <% if @data["interests"].present? %><div><dt>Most excited about</dt><dd><%= @data["interests"].join(", ") %></dd></div><% end %>
+      <div><dt>Ticket</dt><dd><%= number_with_delimiter(Registration.current_price) %> <%= Rails.configuration.x.event.currency %></dd></div>
     </dl>
 
     <div class="cta-row">
       <a class="btn btn--ghost" href="<%= new_registration_path %>">Edit details</a>
-      <button class="btn btn--primary" type="button" disabled>Continue to payment →</button>
+      <%= button_to "Confirm my spot →", confirm_registration_path,
+            method: :post,
+            class: "btn btn--primary",
+            form: { class: "cta-form" },
+            data: { turbo_submits_with: "Saving…" } %>
     </div>
-    <p class="form-note">Saving your registration and payment are coming in the next phases, so the button is switched off for now.</p>
+    <p class="form-note">Next you'll get your ticket code. Payment with MTN MoMo comes right after.</p>
   </div>
 </main>
