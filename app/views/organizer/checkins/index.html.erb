@@ -1,0 +1,32 @@
+<main class="checkin">
+  <h1>Check-in</h1>
+  <p class="checkin__hint">Scan a ticket's QR code with your phone camera, or search below.</p>
+
+  <%= form_with url: organizer_checkin_path, method: :get, class: "search" do %>
+    <%= search_field_tag :q, @query, placeholder: "Ticket code, name or phone",
+                         autofocus: true, autocomplete: "off", "aria-label": "Find a ticket" %>
+    <button class="btn btn--primary" type="submit">Find</button>
+  <% end %>
+
+  <% if @query.present? %>
+    <% if @matches.empty? %>
+      <p class="dashboard__empty">No ticket found for “<%= @query %>”.</p>
+    <% else %>
+      <ul class="match-list">
+        <% @matches.each do |r| %>
+          <li>
+            <%= link_to scan_path(code: r.ticket_code), class: "match" do %>
+              <span class="match__name"><%= r.full_name %></span>
+              <span class="match__meta"><%= r.programme %> · <code><%= r.ticket_code %></code></span>
+              <span class="badge badge--<%= r.checked_in? ? 'checked' : r.status %>">
+                <%= r.checked_in? ? "Checked in" : r.status.capitalize %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+
+  <p class="checkin__links"><%= link_to "← Dashboard", organizer_root_path %></p>
+</main>

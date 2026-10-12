@@ -277,3 +277,173 @@ p { margin: 0 0 12px; }
   html { scroll-behavior: auto; }
   .btn { transition: none; }
 }
+
+/* ---------- Organizer dashboard ---------- */
+.dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  color: #3a0818;
+  font-family: "Quicksand", sans-serif;
+}
+
+.dashboard h1 { font-family: "Pacifico", cursive; font-size: 2rem; margin: 0; }
+.dashboard__sub { margin: 0.25rem 0 1.5rem; opacity: 0.8; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem;
+  background: #fff4ec;
+  border: 2px solid #fbc9d8;
+  border-radius: 14px;
+}
+
+.stat__num { font-size: 1.8rem; font-weight: 700; color: #5a0e2a; }
+.stat__label { font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; }
+
+.attendees {
+  background: #fff4ec;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.attendees h2 { margin: 0 0 0.8rem; }
+
+.search { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+.search input[type="search"] {
+  flex: 1 1 220px;
+  padding: 0.6rem 0.8rem;
+  border: 2px solid #fbc9d8;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.filters { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.pill {
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: #fbc9d8;
+  color: #5a0e2a;
+  text-decoration: none;
+  font-weight: 600;
+}
+.pill--active { background: #5a0e2a; color: #fff4ec; }
+
+.table-scroll { overflow-x: auto; }
+.attendee-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.attendee-table th {
+  text-align: left;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 2px solid #fbc9d8;
+  white-space: nowrap;
+}
+.attendee-table td { padding: 0.6rem; border-bottom: 1px solid #f3dccf; vertical-align: top; }
+.attendee-table small { opacity: 0.7; }
+
+.badge { padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.78rem; font-weight: 700; }
+.badge--paid { background: #f4c874; color: #3a0818; }
+.badge--pending { background: #fbc9d8; color: #5a0e2a; }
+
+.dashboard__empty, .dashboard__note { opacity: 0.75; font-size: 0.9rem; }
+
+.organizers { text-align: center; padding: 1.5rem 1rem; }
+.organizers__title { font-family: "Pacifico", cursive; font-size: 1.4rem; margin: 0 0 0.6rem; }
+.organizers__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; justify-content: center; }
+.organizers__name { font-weight: 700; margin-right: 0.4rem; }
+.organizers__phone { color: inherit; font-weight: 600; }
+
+/* ---------- Check-in ---------- */
+.checkin {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  color: #3a0818;
+  font-family: "Quicksand", sans-serif;
+}
+.checkin h1 { font-family: "Pacifico", cursive; margin: 0 0 0.3rem; }
+.checkin__hint { margin: 0 0 1rem; opacity: 0.8; }
+.checkin__links { text-align: center; margin-top: 1.5rem; }
+
+.checkin-card {
+  background: #fff4ec;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(58, 8, 24, 0.25);
+  padding-bottom: 1.25rem;
+  text-align: center;
+}
+.checkin-card > p { padding: 0 1.25rem; }
+.checkin-card__banner {
+  margin: 0 0 1rem;
+  padding: 1rem 1.25rem !important;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+.checkin-card--valid   .checkin-card__banner { background: #2f9e63; }
+.checkin-card--already .checkin-card__banner { background: #e0a526; color: #3a0818; }
+.checkin-card--unpaid  .checkin-card__banner { background: #c0324f; }
+
+.checkin-card__name { font-family: "Quicksand", sans-serif !important; font-size: 1.6rem; margin: 0 1rem 0.8rem !important; }
+.checkin-card__details { display: grid; gap: 0.6rem; margin: 0 0 1.25rem; padding: 0 1.5rem; text-align: left; }
+.checkin-card__details dt { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+.checkin-card__details dd { margin: 0; font-weight: 600; }
+
+.btn--big { font-size: 1.2rem; padding: 0.9rem 2rem; }
+
+.match-list { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.6rem; }
+.match {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.8rem 1rem;
+  background: #fff4ec;
+  border: 2px solid #fbc9d8;
+  border-radius: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+.match__name { font-weight: 700; }
+.match__meta { font-size: 0.85rem; opacity: 0.75; }
+.badge--checked { background: #cfe9da; color: #1d6b42; }
+
+/* ---------- Manual MoMo payment ---------- */
+.manual-pay {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: #ffffff;
+  border: 2px dashed #ff7fae;
+  border-radius: 14px;
+}
+.manual-pay h2 { font-family: "Pacifico", cursive; font-size: 1.3rem; margin: 0 0 0.6rem; }
+.pay-steps { margin: 0 0 1rem; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+.pay-code { font-size: 1.3rem; letter-spacing: 0.12em; color: #5a0e2a; }
+.manual-fix { margin-top: 1rem; }
+
+.queue { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 0.8rem; }
+.queue__item {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  background: #fff4ec;
+  border: 2px solid #fbc9d8;
+  border-radius: 14px;
+}
+.queue__main { display: grid; gap: 0.15rem; }
+.queue__facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; margin: 0; }
+.queue__facts dt { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+.queue__facts dd { margin: 0; font-weight: 600; }
+.queue__actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.badge--submitted { background: #ffe4a8; color: #5a0e2a; }

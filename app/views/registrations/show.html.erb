@@ -9,7 +9,7 @@
 
       <div class="ticket__body">
         <div class="ticket__qr-wrap" role="img" aria-label="QR code for ticket <%= @registration.ticket_code %>">
-          <%= qr_svg(@registration.ticket_code) %>
+          <%= qr_svg(scan_url(code: @registration.ticket_code)) %>
         </div>
         <p class="ticket__code"><%= @registration.ticket_code %></p>
         <hr class="ticket__perf">
@@ -30,6 +30,28 @@
       Bookmark this page too, so you can always find it again.
     </p>
 
+  <% elsif @registration.submitted? %>
+
+    <div class="paper-card">
+      <%# Reload every 30 seconds so the ticket appears as soon as it is confirmed %>
+      <meta http-equiv="refresh" content="30">
+      <span class="tape" aria-hidden="true"></span>
+      <p class="eyebrow hand">Thank you!</p>
+      <h1>We're checking your payment</h1>
+      <p class="intro">
+        An organizer will confirm your payment (transaction ID
+        <strong><%= @registration.momo_transaction_id %></strong>).
+        This page refreshes by itself, and your ticket will appear here once it's confirmed.
+      </p>
+
+      <details class="manual-fix">
+        <summary>Typed the wrong ID? Fix it</summary>
+        <%= render "registrations/payment_form", registration: @registration, label: "Update transaction ID" %>
+      </details>
+
+      <%= render "shared/organizers" %>
+    </div>
+
   <% else %>
 
     <div class="paper-card">
@@ -47,9 +69,25 @@
         <%= number_with_delimiter(@registration.price) %> <%= @event.currency %>
         <%= "(early bird)" if @registration.early_bird %>
       </p>
-      <p><strong>Status:</strong> Payment pending</p>
 
-      <%= link_to "Pay with MTN MoMo →", new_payment_path(code: @registration.ticket_code), class: "btn btn--primary" %>
+      <section class="manual-pay">
+        <h2>Pay with MoMo Pay</h2>
+        <ol class="pay-steps">
+          <li>Open your MTN MoMo menu or the MoMo app and choose <strong>Pay</strong> (MoMo Pay).</li>
+          <li>Enter the code <strong class="pay-code"><%= @event.momo_pay_code %></strong>.</li>
+          <li>Enter the amount: <strong><%= number_with_delimiter(@registration.price) %> <%= @event.currency %></strong>.</li>
+          <li>Confirm with your MoMo PIN.</li>
+          <li>You'll get an SMS with a <strong>transaction ID</strong>. Type it below.</li>
+        </ol>
+
+        <%= render "registrations/payment_form", registration: @registration, label: "I've paid" %>
+      </section>
+
+      <% if @event.automatic_payments %>
+        <p><%= link_to "Or pay automatically with MTN MoMo →", new_payment_path(code: @registration.ticket_code) %></p>
+      <% end %>
+
+      <%= render "shared/organizers" %>
     </div>
 
   <% end %>

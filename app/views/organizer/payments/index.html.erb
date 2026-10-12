@@ -1,0 +1,41 @@
+<main class="dashboard">
+  <h1>Verify payments</h1>
+  <p class="dashboard__sub">
+    For each person, find the payment in your MoMo messages. If the <strong>transaction ID</strong>
+    and the <strong>amount</strong> match, tap Mark paid.
+  </p>
+
+  <% if @submitted.empty? %>
+    <p class="dashboard__empty">Nothing waiting for confirmation.</p>
+  <% else %>
+    <ul class="queue">
+      <% @submitted.each do |r| %>
+        <li class="queue__item">
+          <div class="queue__main">
+            <strong><%= r.full_name %></strong>
+            <span>
+              <%= r.programme %> ·
+              <%= link_to PhoneNormalizer.local(r.phone), "tel:+#{r.phone.to_s.gsub(/\D/, '')}" %>
+            </span>
+          </div>
+
+          <dl class="queue__facts">
+            <div><dt>Transaction ID</dt><dd><code><%= r.momo_transaction_id %></code></dd></div>
+            <div><dt>Amount expected</dt><dd><%= number_with_delimiter(r.price) %> <%= Rails.configuration.x.event.currency %></dd></div>
+            <div><dt>Submitted</dt><dd><%= r.payment_submitted_at.in_time_zone("Africa/Kigali").strftime("%d %b, %H:%M") %></dd></div>
+          </dl>
+
+          <div class="queue__actions">
+            <%= button_to "Mark paid ✓", organizer_confirm_payment_path(code: r.ticket_code),
+                          method: :post, class: "btn btn--primary" %>
+            <%= button_to "Not received / wrong", organizer_reject_payment_path(code: r.ticket_code),
+                          method: :post, class: "btn btn--ghost",
+                          form: { data: { turbo_confirm: "Send this back so the person can try again?" } } %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <p class="checkin__links"><%= link_to "← Dashboard", organizer_root_path %></p>
+</main>

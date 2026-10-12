@@ -1,5 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :load_event
+  before_action :require_automatic_payments
 
   def new
     @registration = find_registration
@@ -62,4 +63,7 @@ class PaymentsController < ApplicationController
   def find_registration
     Registration.find_by!(ticket_code: params[:code])
   end
+    def require_automatic_payments
+    redirect_to "/" unless @event.automatic_payments
+    end
 end

@@ -11,11 +11,13 @@ shared:
 
   # Pricing: the first `early_bird_limit` registrations pay the early bird price
   early_bird_limit: 200
-  early_bird_price: 5000
-  regular_price: 7000
+  early_bird_price: 7000
+  regular_price: 10000
+  momo_pay_code: "2289393"
+  automatic_payments: false   # keep false until MTN gives you LIVE credentials
 
   # Shown on the site. Replace with the real numbers.
   organizers:
-    - { name: "Organizer 1", phone: "0799 617 065" }
-    - { name: "Organizer 2", phone: "0796 881 195" }
-    - { name: "Organizer 3", phone: "0798 449 539" }
+    - { name: "Jovia", phone: "0799 617 065" }
+    - { name: "Verdique", phone: "0796 881 195" }
+    - { name: "Bwiza", phone: "0798 449 539" }

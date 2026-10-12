@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_05_205759) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_10_174633) do
   create_table "payments", force: :cascade do |t|
     t.integer "registration_id", null: false
     t.string "reference_id", null: false
@@ -39,6 +39,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_205759) do
     t.datetime "checked_in_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "momo_transaction_id"
+    t.datetime "payment_submitted_at"
+    t.string "payment_method"
+    t.string "confirmed_by"
+    t.string "checked_in_by"
+    t.index ["momo_transaction_id"], name: "index_registrations_on_momo_transaction_id", unique: true
     t.index ["phone"], name: "index_registrations_on_phone", unique: true
     t.index ["ticket_code"], name: "index_registrations_on_ticket_code", unique: true
   end

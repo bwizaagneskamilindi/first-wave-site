@@ -1,0 +1,11 @@
+<%= form_with model: registration, url: manual_payment_path(code: registration.ticket_code), method: :post do |f| %>
+  <div class="field">
+    <%= f.label :momo_transaction_id, "MoMo transaction ID" %>
+    <p class="hint">Copy it exactly from the confirmation SMS.</p>
+    <%= f.text_field :momo_transaction_id, autocomplete: "off", maxlength: 30,
+          aria: { invalid: registration.errors[:momo_transaction_id].any? } %>
+    <p class="field__error"><%= registration.errors[:momo_transaction_id].first %></p>
+  </div>
+
+  <button class="btn btn--primary" type="submit" style="width:100%"><%= label %></button>
+<% end %>

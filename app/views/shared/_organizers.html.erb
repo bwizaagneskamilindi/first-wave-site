@@ -1,0 +1,11 @@
+<section class="organizers" aria-label="Contact the organizers">
+  <h2 class="organizers__title">Questions? Call us</h2>
+  <ul class="organizers__list">
+    <% Rails.configuration.x.event.organizers.each do |o| %>
+      <li>
+        <span class="organizers__name"><%= o[:name] %></span>
+        <%= link_to o[:phone], "tel:+#{PhoneNormalizer.call(o[:phone]).to_s.gsub(/\D/, '')}", class: "organizers__phone" %>
+      </li>
+    <% end %>
+  </ul>
+</section>

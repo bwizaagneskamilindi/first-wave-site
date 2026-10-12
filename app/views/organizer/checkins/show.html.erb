@@ -1,0 +1,51 @@
+<main class="checkin">
+  <% state = if !@registration.paid? then "unpaid"
+             elsif @registration.checked_in? then "already"
+             else "valid" end %>
+
+  <article class="checkin-card checkin-card--<%= state %>">
+    <p class="checkin-card__banner">
+      <% if state == "valid" %>✓ Valid ticket
+      <% elsif state == "already" %>Already checked in
+      <% else %>✗ Not paid
+      <% end %>
+    </p>
+
+    <h1 class="checkin-card__name"><%= @registration.full_name %></h1>
+
+    <dl class="checkin-card__details">
+      <div><dt>Programme</dt><dd><%= @registration.programme %></dd></div>
+      <div><dt>Phone</dt><dd><%= PhoneNormalizer.local(@registration.phone) %></dd></div>
+      <% if @registration.coming_with.present? %>
+        <div><dt>Coming with</dt><dd><%= @registration.coming_with %></dd></div>
+      <% end %>
+      <div><dt>Ticket</dt><dd><code><%= @registration.ticket_code %></code></dd></div>
+      <% if state == "already" %>
+        <div>
+          <dt>Checked in</dt>
+          <dd>
+            <%= @registration.checked_in_at.in_time_zone("Africa/Kigali").strftime("%H:%M") %>
+            <% if @registration.checked_in_by.present? %>by <%= @registration.checked_in_by %><% end %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+    <% if state == "valid" %>
+  <%= button_to "Check in ✓", scan_path(code: @registration.ticket_code),
+                method: :post, class: "btn btn--primary btn--big" %>
+<% elsif state == "already" %>
+  <%= button_to "Undo check-in", scan_path(code: @registration.ticket_code),
+                method: :delete, class: "btn btn--ghost",
+                form: { data: { turbo_confirm: "Undo this check-in?" } } %>
+<% elsif !@registration.cancelled? %>
+  <%= button_to "Mark as paid", organizer_confirm_payment_path(code: @registration.ticket_code),
+                method: :post, class: "btn btn--primary",
+                form: { data: { turbo_confirm: "Only do this if you have received the money. Mark as paid?" } } %>
+    <% end %>
+  </article>
+
+  <p class="checkin__links">
+    <%= link_to "← Find another ticket", organizer_checkin_path %> ·
+    <%= link_to "Dashboard", organizer_root_path %>
+  </p>
+</main>

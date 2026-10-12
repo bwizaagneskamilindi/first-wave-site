@@ -28,6 +28,7 @@
       <p class="eyebrow hand">Hmm</p>
       <h1>The payment didn't go through</h1>
       <p class="intro">No money was taken. You can try again.</p>
+      <%= render "shared/organizers" %>
       <%= link_to "Try again", new_payment_path(code: @registration.ticket_code), class: "btn btn--primary" %>
     <% end %>
   </div>
