@@ -447,3 +447,30 @@ p { margin: 0 0 12px; }
 .queue__actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
 .badge--submitted { background: #ffe4a8; color: #5a0e2a; }
+
+@media print {
+  @page { margin: 0; }
+  /* hide everything that isn't the ticket */
+  .site-header,
+  .ticket-note,
+  .ticket-save {
+    display: none !important;
+  }
+
+  /* make sure ticket colors, backgrounds and the QR actually print */
+  .ticket,
+  .ticket * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* don't split the ticket across pages */
+  .ticket {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .ticket-save {
+    display: flex;
+    margin: 0 auto 1rem;
+  }
+}
