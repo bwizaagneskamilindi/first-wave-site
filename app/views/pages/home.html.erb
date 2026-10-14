@@ -101,7 +101,7 @@
       </dl>
       <div class="ticket__stub">
         <p class="hand">Ticket</p>
-        <p class="ticket__price"><%= number_with_delimiter(@event.ticket_price) %> <small><%= @event.currency %></small></p>
+        <p class="ticket__price"><%= @event.ticket_prices.map { |p| number_with_delimiter(p) }.join(" / ") %> <small><%= @event.currency %></small></p>
         <a class="btn btn--primary" href="/register">Register →</a>
       </div>
     </div>

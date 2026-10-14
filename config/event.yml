@@ -9,10 +9,8 @@ shared:
   currency: "RWF"
   year: 2026
 
-  # Pricing: the first `early_bird_limit` registrations pay the early bird price
-  early_bird_limit: 200
-  early_bird_price: 7000
-  regular_price: 10000
+  # Prices for people and related stuff
+  ticket_prices: [7000, 10000]
   momo_pay_code: "2289393"
   automatic_payments: false   # keep false until MTN gives you LIVE credentials
 

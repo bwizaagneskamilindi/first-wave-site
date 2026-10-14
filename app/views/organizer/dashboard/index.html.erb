@@ -15,9 +15,7 @@
       <span class="stat__num"><%= number_with_delimiter(@revenue) %></span>
       <span class="stat__label"><%= @event.currency %> collected</span>
     </div>
-    <div class="stat"><span class="stat__num"><%= @early_left %></span><span class="stat__label">Early-bird spots left</span></div>
     <div class="stat"><span class="stat__num"><%= @checked_in %></span><span class="stat__label">Checked in</span></div>
-    <div class="stat"><span class="stat__num"><%= @submitted %></span><span class="stat__label">To verify</span></div>
   </section>
 
   <section class="attendees">
@@ -58,7 +56,7 @@
                 <td><%= r.programme %></td>
                 <td><span class="badge badge--<%= r.status %>"><%= r.status.capitalize %></span></td>
                 <td><code><%= r.ticket_code %></code></td>
-                <td><%= number_with_delimiter(r.price) %><%= " ★" if r.early_bird %></td>
+                <td><%= number_with_delimiter(r.price) %></td>
                 <td><%= r.created_at.in_time_zone("Africa/Kigali").strftime("%d %b, %H:%M") %></td>
               </tr>
             <% end %>
@@ -66,7 +64,7 @@
         </table>
       </div>
       <p class="dashboard__note">
-        Showing <%= @registrations.size %> · ★ = early-bird price
+        Showing <%= @registrations.size %>
       </p>
     <% end %>
   </section>

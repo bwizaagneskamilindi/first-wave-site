@@ -5,7 +5,7 @@
     <h1>Pay for your ticket</h1>
     <p class="intro">
       <strong><%= number_with_delimiter(@registration.price) %> <%= @event.currency %></strong>
-      <%= "(early bird)" if @registration.early_bird %><br>
+<br>
       <%= @event.name %> · <%= @event.date %> · <%= @event.time %>
     </p>
 

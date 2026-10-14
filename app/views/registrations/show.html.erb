@@ -68,7 +68,7 @@
       <p><strong>Your ticket code:</strong> <%= @registration.ticket_code %></p>
       <p><strong>Ticket price:</strong>
         <%= number_with_delimiter(@registration.price) %> <%= @event.currency %>
-        <%= "(early bird)" if @registration.early_bird %>
+
       </p>
 
       <section class="manual-pay">

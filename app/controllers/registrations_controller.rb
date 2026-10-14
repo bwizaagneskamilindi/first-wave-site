@@ -18,13 +18,14 @@ class RegistrationsController < ApplicationController
 
   def review
     @data = session[:pending_registration]
-    redirect_to new_registration_path if @data.blank?
+    redirect_to new_registration_path if @data.blank? || @data["ticket_price"].blank?
   end
 
   # NEW: the person pressed "Confirm" on the review page. Save to the database.
   def confirm
     data = session[:pending_registration]
     return redirect_to(new_registration_path) if data.blank?
+    return redirect_to(new_registration_path) if data["ticket_price"].blank?
 
     registration = Registration.find_or_initialize_by(phone: data["phone"])
 
@@ -33,6 +34,7 @@ class RegistrationsController < ApplicationController
       registration.assign_attributes(
         data.slice("full_name", "programme", "email", "coming_with", "interests")
       )
+      registration.price = data["ticket_price"] unless registration.submitted?
       unless registration.save
         return redirect_to new_registration_path,
                alert: "Something went wrong saving your details. Please try again."
@@ -53,7 +55,7 @@ class RegistrationsController < ApplicationController
 
   def form_params
     params.require(:registration_form)
-          .permit(:full_name, :phone, :programme, :email, :coming_with, interests: [])
+          .permit(:full_name, :phone, :programme, :email, :coming_with, :ticket_price, interests: [])
   end
 
   def prefill

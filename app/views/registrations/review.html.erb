@@ -12,7 +12,7 @@
       <% if @data["email"].present? %><div><dt>Email</dt><dd><%= @data["email"] %></dd></div><% end %>
       <% if @data["coming_with"].present? %><div><dt>Coming with</dt><dd><%= @data["coming_with"] %></dd></div><% end %>
       <% if @data["interests"].present? %><div><dt>Most excited about</dt><dd><%= @data["interests"].join(", ") %></dd></div><% end %>
-      <div><dt>Ticket</dt><dd><%= number_with_delimiter(Registration.current_price) %> <%= Rails.configuration.x.event.currency %></dd></div>
+      <div><dt>Ticket</dt><dd><%= number_with_delimiter(@data["ticket_price"]) %> <%= Rails.configuration.x.event.currency %></dd></div>
     </dl>
 
     <div class="cta-row">

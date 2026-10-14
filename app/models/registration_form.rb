@@ -14,6 +14,7 @@ class RegistrationForm
   attribute :email, :string
   attribute :coming_with, :string
   attribute :interests, default: -> { [] }
+  attribute :ticket_price, :integer
 
   attr_reader :normalized_phone
 
@@ -35,12 +36,15 @@ class RegistrationForm
                     length: { maximum: 254 }, allow_blank: true
 
   validates :coming_with, length: { maximum: 100, too_long: "That's a bit long (100 characters max)." }, allow_blank: true
+    validates :ticket_price, inclusion: { in: ->(_form) { Rails.configuration.x.event.ticket_prices },
+                                        message: "Please choose a ticket price." }
 
   # What we keep between the form and the review page (Phase 3 will save this to the database instead).
   def to_session
     {
       "full_name" => full_name, "phone" => normalized_phone, "programme" => programme,
-      "email" => email, "coming_with" => coming_with, "interests" => interests
+      "email" => email, "coming_with" => coming_with, "interests" => interests,
+      "ticket_price" => ticket_price
     }
   end
 

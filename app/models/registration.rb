@@ -6,7 +6,6 @@ class Registration < ApplicationRecord
 
   before_validation :normalize_phone
   before_validation :normalize_transaction_id
-  before_validation :set_price, on: :create
   before_validation :set_ticket_code, on: :create
 
   validates :full_name,   presence: true, length: { maximum: 80 }
@@ -21,21 +20,16 @@ class Registration < ApplicationRecord
             uniqueness: { message: "That transaction ID was already used. Please check it in your MoMo SMS." },
             format: { with: /\A[A-Z0-9]{6,20}\z/,
                       message: "That doesn't look like a MoMo transaction ID. Copy it from your confirmation SMS." }
+  validates :price, presence: true
+  validates :price, inclusion: { in: ->(_r) { Rails.configuration.x.event.ticket_prices } },
+                    if: :will_save_change_to_price?                    
 
   scope :paid, -> { where(status: "paid") }
   scope :checked_in, -> { where.not(checked_in_at: nil) }
 
+
   def self.event
     Rails.configuration.x.event
-  end
-
-  # The price the NEXT person will pay. The server decides, never the browser.
-  def self.current_price
-    early_bird_open? ? event.early_bird_price : event.regular_price
-  end
-
-  def self.early_bird_open?
-    where.not(status: "cancelled").count < event.early_bird_limit
   end
 
   # Finds registrations by name, programme, ticket code or phone number.
@@ -120,11 +114,6 @@ class Registration < ApplicationRecord
   # "12 34-56" becomes "123456"; an empty box becomes nil
   def normalize_transaction_id
     self.momo_transaction_id = momo_transaction_id.to_s.gsub(/[\s-]/, "").upcase.presence
-  end
-
-  def set_price
-    self.early_bird = self.class.early_bird_open?
-    self.price = early_bird ? self.class.event.early_bird_price : self.class.event.regular_price
   end
 
   def set_ticket_code

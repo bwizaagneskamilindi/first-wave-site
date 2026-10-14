@@ -1,6 +1,6 @@
 module Organizer
   class DashboardController < BaseController
-    STATUS_FILTERS = %w[paid pending].freeze
+    STATUS_FILTERS = %w[paid pending submitted].freeze
 
     def index
       @event = Rails.configuration.x.event
@@ -9,8 +9,8 @@ module Organizer
       @total      = active.count
       @paid       = Registration.paid.count
       @pending    = Registration.where(status: "pending").count
+      @submitted  = Registration.where(status: "submitted").count
       @revenue    = Registration.paid.sum(:price)
-      @early_left = [@event.early_bird_limit - @total, 0].max
       @checked_in = Registration.checked_in.count
 
       @status = params[:status].presence_in(STATUS_FILTERS)
