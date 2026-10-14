@@ -97,7 +97,7 @@
         <div><dt>Date</dt><dd><%= @event.date %></dd></div>
         <div><dt>Time</dt><dd><%= @event.time %></dd></div>
         <div><dt>Venue</dt><dd><%= @event.venue %></dd></div>
-        <div><dt>Location</dt><dd><%= @event.location %></dd></div>
+        <div><dt>Location</dt><dd><%= @event.location %><br><%= link_to "Get directions →", map_directions_url, class: "map-link", target: "_blank", rel: "noopener" %></dd></div>
       </dl>
       <div class="ticket__stub">
         <p class="hand">Ticket</p>

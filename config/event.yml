@@ -6,6 +6,9 @@ shared:
   time: "4:00 PM"
   venue: "Vista Hotel"
   location: "Mumena, Kigali, Rwanda"
+  map_query: "Vista Hotel Mumena Kigali Rwanda"
+  map_lat: -1.976931
+  map_lng: 30.054784
   currency: "RWF"
   year: 2026
 

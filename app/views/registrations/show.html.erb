@@ -19,7 +19,7 @@
         <div><dt>Name</dt><dd><%= @registration.full_name %></dd></div>
         <div><dt>Date</dt><dd><%= @event.date %></dd></div>
         <div><dt>Time</dt><dd><%= @event.time %></dd></div>
-        <div><dt>Where</dt><dd><%= @event.venue %>, <%= @event.location %></dd></div>
+        <div><dt>Where</dt><dd><%= @event.venue %>, <%= @event.location %><br><%= link_to "Get directions →", map_directions_url, class: "map-link", target: "_blank", rel: "noopener" %></dd></div>
       </dl>
 
       <p class="ticket__tagline"><%= @event.tagline %></p>
